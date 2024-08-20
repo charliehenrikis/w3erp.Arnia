@@ -1,11 +1,9 @@
 import React from 'react';
-import LoginForm from './components/formLogin';
+import AppRoutes from './components/routes';
 
 const App: React.FC = () => {
   return (
-    <div>
-      <LoginForm />
-    </div>
+    <AppRoutes/>
   );
 };
 
