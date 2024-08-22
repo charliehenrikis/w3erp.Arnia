@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
-import ImagemLadoFormulario from '../assets/Frame 61.svg';
-import { Link } from 'react-router-dom';
+import ImagemLadoFormulario from '../assets/Rectangle 3953.png';
+import GenericButton from './button/button';
 
 const Container = styled.div`
   display: flex;
@@ -49,11 +49,11 @@ const InputContainer = styled.div`
 `;
 
 const Input = styled.input<{ type: string }>`
+  border-radius: 15px;
   padding: 12px;
   padding-right: 40px;
   width: 100%;
   border: 1px solid #ccc;
-  border-radius: 4px;
   box-sizing: border-box;
 `;
 
@@ -65,21 +65,6 @@ const Icon = styled.div`
   cursor: pointer;
   color: #3f51b5;
   z-index: 1;
-`;
-
-const Button = styled.button`
-  padding: 12px;
-  margin-top: 16px;
-  width: 100%;
-  border: none;
-  border-radius: 4px;
-  background-color: #001C98;
-  color: white;
-  cursor: pointer;
-
-  &:hover {
-    background-color: #001C98;
-  }
 `;
 
 const TextContainer = styled.div`
@@ -134,6 +119,7 @@ const LoginForm: React.FC = () => {
     evento.preventDefault();
     if (validarFormulario()) {
       console.log('Login bem-sucedido:', dadosFormulario);
+      // Aqui você pode adicionar lógica adicional após o login, se necessário
     }
   };
 
@@ -168,11 +154,11 @@ const LoginForm: React.FC = () => {
             </Icon>
             {erros.senha && <ErrorMessage>{erros.senha}</ErrorMessage>}
           </InputContainer>
-          <Link to="/dashboard"><Button type="submit">Entrar</Button></Link>
+          <GenericButton label="Entrar" path="/dashboard" />
         </Form>
       </FormSection>
       <ImageSection>
-        <Image src={ImagemLadoFormulario} alt="Imagem SVG" />
+        <Image src={ImagemLadoFormulario} alt="Imagem PNG" />
       </ImageSection>
     </Container>
   );
