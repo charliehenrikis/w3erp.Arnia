@@ -34,12 +34,15 @@ const ImageSection = styled.div`
 const Image = styled.img`
   width: 100%;
   height: 100%;
-  object-fit: cover; 
+  object-fit: cover;
 `;
 
 const Form = styled.form`
   width: 100%;
   max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 const InputContainer = styled.div`
@@ -48,7 +51,7 @@ const InputContainer = styled.div`
   margin: 8px 0;
 `;
 
-const Input = styled.input<{ type: string }>`
+const Input = styled.input`
   border-radius: 15px;
   padding: 12px;
   padding-right: 40px;
@@ -85,6 +88,13 @@ const ErrorMessage = styled.p`
   color: red;
   margin: 8px 0 0 0;
   font-size: 12px;
+`;
+
+const ButtonContainer = styled.div`
+  margin-top: 16px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
 `;
 
 const LoginForm: React.FC = () => {
@@ -154,7 +164,9 @@ const LoginForm: React.FC = () => {
             </Icon>
             {erros.senha && <ErrorMessage>{erros.senha}</ErrorMessage>}
           </InputContainer>
-          <GenericButton label="Entrar" path="/dashboard" />
+          <ButtonContainer>
+            <GenericButton label="Entrar" path="/dashboard" />
+          </ButtonContainer>
         </Form>
       </FormSection>
       <ImageSection>

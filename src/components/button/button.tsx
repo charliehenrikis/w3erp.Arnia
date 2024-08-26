@@ -6,26 +6,33 @@ interface GenericButtonProps {
   label: string;
   path: string;
   onClick?: () => void;
+  icon?: React.ReactNode;
 }
 
 const Button = styled.button`
-  background-color: #fff;
-  color: #001C98;
+  background-color: #001C98;
+  width: 271px;
+  height: 52px;
+  color: white;
   border: none;
-  padding: 10px;
-  margin-bottom: 10px;
-  width: 100%;
+  margin-top: 10px;
+  margin-bottom: 1px;
   cursor: pointer;
-  font-size: 16px;
-  border-radius: 5px;
-  animation-duration: 0ms;
-  
+  font-size: 14px;
+  border-radius: 25px;
+  transition: background-color 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px; // Adiciona espaçamento entre ícone e texto
+
   &:hover {
-    background-color: #f0f0f0;
+    background-color: #7682C1;
   }
 `;
 
-const GenericButton: React.FC<GenericButtonProps> = ({ label, path, onClick }) => {
+
+const GenericButton: React.FC<GenericButtonProps> = ({ label, path, onClick, icon }) => {
   const navigate = useNavigate();
 
   const handleClick = () => {
@@ -35,7 +42,12 @@ const GenericButton: React.FC<GenericButtonProps> = ({ label, path, onClick }) =
     navigate(path);
   };
 
-  return <Button onClick={handleClick}>{label}</Button>;
+  return (
+    <Button onClick={handleClick}>
+      {icon && <span>{icon}</span>} {/* Renderiza o ícone se disponível */}
+      {label}
+    </Button>
+  );
 };
 
 export default GenericButton;
