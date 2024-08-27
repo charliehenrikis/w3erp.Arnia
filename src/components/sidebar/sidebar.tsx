@@ -1,4 +1,3 @@
-
 import styled from 'styled-components';
 import logo from '../../assets/logo.png';
 import GenericButton from '../button/button';
@@ -7,18 +6,19 @@ import { FaTachometerAlt, FaChartLine, FaBox } from 'react-icons/fa';
 
 const SidebarContainer = styled.div`
     display: flex;
+    flex-shrink: 0; /* Evita que o sidebar encolha */
 `;
 
 const Sidebar = styled.div`
     width: 274px; 
-    height: 1208px;
     background-color: #001C98;
     padding: 20px;
     color: white;
     opacity: 0.8;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    height: 100vh; /* Ajusta a altura para ocupar toda a tela */
+    box-sizing: border-box; /* Inclui o padding no cálculo da largura/altura */
 `;
 
 const Logo = styled.img`
@@ -32,6 +32,7 @@ const ButtonContainer = styled.div`
     display: flex;
     flex-direction: column;
     gap: 10px;
+    flex-grow: 1; /* Faz o container de botões ocupar o espaço disponível */
 `;
 
 const HelpAndImageSection = styled.div`

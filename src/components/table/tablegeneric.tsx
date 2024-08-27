@@ -18,27 +18,26 @@ const TableCell = styled.th`
   padding: 10px;
   text-align: left;
   border-bottom: 1px solid #ddd;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 const TableData = styled.td`
   padding: 10px;
   text-align: left;
   border-bottom: 1px solid #ddd;
-`;
-
-const Arrow = styled.span`
-  font-size: 16px;
-  margin-left: 10px;
-  color: #333;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 interface DataTableProps {
   columns: string[];
   data: { [key: string]: any }[];
-  showArrow?: boolean;
 }
 
-const DataTable: React.FC<DataTableProps> = ({ columns, data, showArrow = false }) => {
+const DataTable: React.FC<DataTableProps> = ({ columns, data }) => {
   return (
     <Table>
       <TableHead>
@@ -59,7 +58,6 @@ const DataTable: React.FC<DataTableProps> = ({ columns, data, showArrow = false 
               {columns.map((column) => (
                 <TableData key={column}>
                   {row[column]}
-                  {showArrow && column === 'percentage' && <Arrow></Arrow>}
                 </TableData>
               ))}
             </tr>

@@ -15,6 +15,18 @@ const Container = styled.div`
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 `;
 
+const ErrorMessage = styled.div`
+  color: red;
+  font-size: 1rem;
+  margin-bottom: 20px;
+`;
+
+const Loader = styled.div`
+  text-align: center;
+  font-size: 1rem;
+  color: #555;
+`;
+
 interface Product {
   id: string;
   name: string;
@@ -26,16 +38,23 @@ const Products: React.FC = () => {
   const [showHigh, setShowHigh] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [showAllPages, setShowAllPages] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const itemsPerPage = 10;
 
   useEffect(() => {
     const fetchProducts = async () => {
+      setLoading(true);
+      setError(null);
       try {
         const response = await fetch('http://localhost:3000/products');
         const data: Product[] = await response.json();
         setProducts(data);
       } catch (error) {
+        setError('Erro ao buscar os produtos. Tente novamente mais tarde.');
         console.error('Erro ao buscar os produtos:', error);
+      } finally {
+        setLoading(false);
       }
     };
     fetchProducts();
@@ -65,6 +84,8 @@ const Products: React.FC = () => {
 
   const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
 
+  const formatPercentage = (percentage: number) => `${percentage.toFixed(0)}%`;
+
   return (
     <Container>
       <HeaderSection
@@ -73,18 +94,26 @@ const Products: React.FC = () => {
         showHigh={showHigh}
         onToggle={handleToggle}
       />
-      <DataTable
-        columns={['id', 'name', 'percentage']}
-        data={paginatedProducts}
-        showArrow
-      />
-      <PaginationTable
-        currentPage={currentPage}
-        totalPages={totalPages}
-        onPageChange={handlePageChange}
-        onShowAll={handleShowAll}
-        showAllPages={showAllPages || showHigh}
-      />
+      {loading && <Loader>Carregando...</Loader>}
+      {error && <ErrorMessage>{error}</ErrorMessage>}
+      {!loading && !error && (
+        <>
+          <DataTable
+            columns={['id', 'name', 'percentage']}
+            data={paginatedProducts.map(product => ({
+              ...product,
+              percentage: formatPercentage(product.percentage),
+            }))}
+          />
+          <PaginationTable
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={handlePageChange}
+            onShowAll={handleShowAll}
+            showAllPages={showAllPages || showHigh}
+          />
+        </>
+      )}
     </Container>
   );
 };

@@ -43,6 +43,9 @@ const PaginationTable: React.FC<PaginationTableProps> = ({
   onShowAll,
   showAllPages = false,
 }) => {
+  // Show 5 pages at most
+  const maxPagesToShow = 5;
+
   const showPagesInBlocks = (start: number, end: number) => {
     const pages = [];
     for (let i = start; i <= end; i++) {
@@ -55,12 +58,12 @@ const PaginationTable: React.FC<PaginationTableProps> = ({
     return pages;
   };
 
-  const startPage = Math.max(1, Math.min(currentPage - Math.floor(5 / 2), totalPages - 5 + 1));
-  const endPage = Math.min(startPage + 5 - 1, totalPages);
+  const startPage = Math.max(1, Math.min(currentPage - Math.floor(maxPagesToShow / 2), totalPages - maxPagesToShow + 1));
+  const endPage = Math.min(startPage + maxPagesToShow - 1, totalPages);
 
   return (
     <PaginationTableContainer>
-      {!showAllPages && totalPages > 5 && (
+      {!showAllPages && totalPages > maxPagesToShow && (
         <>
           {showPagesInBlocks(startPage, endPage)}
           {totalPages > endPage && onShowAll && (

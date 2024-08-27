@@ -7,8 +7,7 @@ import PaginationTable from './paginationTable';
 
 const Container = styled.div`
   font-family: Poppins, sans-serif;
-  width: 100%;
-  max-width: 500px;
+  width: 500px;
   margin: 0 auto;
   padding: 20px;
   border-radius: 10px;
@@ -16,21 +15,17 @@ const Container = styled.div`
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 `;
 
-const TableWrapper = styled.div`
-  overflow-x: auto; /* Adiciona rolagem horizontal, se necessário */
-`;
-
 interface Customer {
   id: string;
   name: string;
-  phone: string;
-  email: string;
+  percentage: string;
 }
 
 const CustomersTable: React.FC = () => {
   const [customers, setCustomers] = useState<Customer[]>([]);
   const [showHigh, setShowHigh] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
+  const [showAllPages, setShowAllPages] = useState(false);
   const itemsPerPage = 10;
 
   useEffect(() => {
@@ -53,16 +48,22 @@ const CustomersTable: React.FC = () => {
 
   const handlePageChange = (page: number) => setCurrentPage(page);
 
+  const handleShowAllPages = () => {
+    setShowAllPages(!showAllPages);
+    setCurrentPage(1); // Voltar para a página 1 quando mostrar todas as páginas
+  };
+
   const filteredCustomers = customers.filter(customer =>
     showHigh ? customer.name.toLowerCase().includes('a') : customer.name.toLowerCase().includes('b')
   );
+
+  const totalPages = Math.ceil(filteredCustomers.length / itemsPerPage);
+
 
   const paginatedCustomers = filteredCustomers.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
-
-  const totalPages = Math.ceil(filteredCustomers.length / itemsPerPage);
 
   return (
     <Container>
@@ -72,19 +73,16 @@ const CustomersTable: React.FC = () => {
         showHigh={showHigh}
         onToggle={handleToggle}
       />
-      <TableWrapper>
-        <DataTable
-          columns={['id', 'name', 'phone', 'email']}
-          data={paginatedCustomers}
-          showArrow={false}
-        />
-      </TableWrapper>
+      <DataTable
+        columns={['id', 'name', 'percentage']}
+        data={paginatedCustomers}
+      />
       <PaginationTable
         currentPage={currentPage}
         totalPages={totalPages}
         onPageChange={handlePageChange}
-        onShowAll={() => {}}
-        showAllPages={true}
+        onShowAll={handleShowAllPages}
+        showAllPages={showAllPages}
       />
     </Container>
   );
