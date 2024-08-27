@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
-import ImagemLadoFormulario from '../assets/Rectangle 3953.png';
-import GenericButton from './button/button';
+import ImagemLadoFormulario from '../../assets/Rectangle 3953.png';
+import GenericButton from '../button/button';
 
 const Container = styled.div`
   display: flex;
@@ -94,7 +94,32 @@ const ButtonContainer = styled.div`
   margin-top: 16px;
   width: 100%;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const RememberMeContainer = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 8px;
+  font-size: 14px;
+`;
+
+const RememberMeLabel = styled.label`
+  display: flex;
+  align-items: center;
+`;
+
+const RememberMeInput = styled.input`
+  margin-right: 8px;
+`;
+
+const EsqueciSenha = styled.a`
+  color: #3f51b5;
+  text-decoration: none;
+  cursor: pointer;
 `;
 
 const LoginForm: React.FC = () => {
@@ -138,7 +163,7 @@ const LoginForm: React.FC = () => {
       <FormSection>
         <Form onSubmit={lidarComEnvio}>
           <TextContainer>
-            <Title>Seja bem vindo</Title>
+            <Title>Seja bem-vindo</Title>
             <Subtitle>Realize seu login</Subtitle>
           </TextContainer>
           <InputContainer>
@@ -164,6 +189,13 @@ const LoginForm: React.FC = () => {
             </Icon>
             {erros.senha && <ErrorMessage>{erros.senha}</ErrorMessage>}
           </InputContainer>
+          <RememberMeContainer>
+            <RememberMeLabel>
+              <RememberMeInput type="checkbox" />
+              Lembrar-me
+            </RememberMeLabel>
+            <EsqueciSenha href="#">Esqueci minha senha</EsqueciSenha>
+          </RememberMeContainer>
           <ButtonContainer>
             <GenericButton label="Entrar" path="/dashboard" />
           </ButtonContainer>
