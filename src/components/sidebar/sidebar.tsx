@@ -6,23 +6,23 @@ import { FaTachometerAlt, FaChartLine, FaBox } from 'react-icons/fa';
 
 const SidebarContainer = styled.div`
     display: flex;
-    flex-shrink: 0; /* Evita que o sidebar encolha */
+    flex-shrink: 0; 
 `;
 
 const Sidebar = styled.div`
-    width: 274px; 
+    width: 350px; 
     background-color: #001C98;
     padding: 20px;
     color: white;
     opacity: 0.8;
     display: flex;
     flex-direction: column;
-    height: 100vh; /* Ajusta a altura para ocupar toda a tela */
-    box-sizing: border-box; /* Inclui o padding no cálculo da largura/altura */
+    height: 100vh; 
+    box-sizing: border-box; 
 `;
 
 const Logo = styled.img`
-    width: 200px;
+    width: 240px;
     margin-top: 30px;
     margin-bottom: 50px;
     margin-left: 35px;
@@ -32,16 +32,16 @@ const ButtonContainer = styled.div`
     display: flex;
     flex-direction: column;
     gap: 10px;
-    flex-grow: 1; /* Faz o container de botões ocupar o espaço disponível */
+    flex-grow: 1; 
 `;
 
 const HelpAndImageSection = styled.div`
-    margin-top: 20px; /* Ajuste conforme necessário */
+    margin-top: 20px; 
     text-align: center;
     display: flex;
     flex-direction: column;
-    align-items: center; /* Centraliza o conteúdo horizontalmente */
-    gap: 20px; /* Espaçamento entre a imagem e o texto */
+    align-items: center; 
+    gap: 20px; 
 `;
 
 const Image = styled.img`

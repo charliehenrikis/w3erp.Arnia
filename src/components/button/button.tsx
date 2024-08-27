@@ -24,7 +24,7 @@ const Button = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px; // Adiciona espaçamento entre ícone e texto
+  gap: 10px;
 
   &:hover {
     background-color: #7682C1;
