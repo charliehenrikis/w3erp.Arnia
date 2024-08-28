@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import LampadaImg from '../../assets/facial-cleanser.png';
+import PeopleImg from '../../assets/every-user.png';
 import HeaderSection from './headersection';
 import DataTable from './tablegeneric';
 import PaginationTable from './paginationTable';
@@ -18,7 +18,7 @@ const Container = styled.div`
 interface Customer {
   id: string;
   name: string;
-  percentage: string;
+  percentage: number; // Corrigido para number para usar formatPercentage
 }
 
 const CustomersTable: React.FC = () => {
@@ -54,28 +54,32 @@ const CustomersTable: React.FC = () => {
   };
 
   const filteredCustomers = customers.filter(customer =>
-    showHigh ? customer.name.toLowerCase().includes('a') : customer.name.toLowerCase().includes('b')
+    showHigh ? customer.percentage >= 35 : customer.percentage < 35
   );
-
+  
   const totalPages = Math.ceil(filteredCustomers.length / itemsPerPage);
-
 
   const paginatedCustomers = filteredCustomers.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
 
+  const formatPercentage = (percentage: number) => `${percentage.toFixed(0)}%`;
+
   return (
     <Container>
       <HeaderSection
-        iconSrc={LampadaImg}
+        iconSrc={PeopleImg}
         title="Clientes"
         showHigh={showHigh}
         onToggle={handleToggle}
       />
       <DataTable
         columns={['id', 'name', 'percentage']}
-        data={paginatedCustomers}
+        data={paginatedCustomers.map(customer => ({
+          ...customer,
+          percentage: formatPercentage(customer.percentage), // Corrigido para formatar o percentual
+        }))}
       />
       <PaginationTable
         currentPage={currentPage}

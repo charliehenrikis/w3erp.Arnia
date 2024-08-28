@@ -74,7 +74,7 @@ const Products: React.FC = () => {
   };
 
   const filteredProducts = products.filter(product =>
-    showHigh ? product.percentage >= 0.5 : product.percentage < 0.5
+    showHigh ? product.percentage >= 35 : product.percentage < 35
   );
 
   const paginatedProducts = filteredProducts.slice(

@@ -9,21 +9,20 @@ const BlueBox = styled.div`
   top: 162px;
   left: 306px;
   background-color: #001C98;
-  border-radius: 24px;
-  display: flex; /* Usar flexbox para layout */
-  justify-content: space-around; /* Espaço igual entre os itens */
-  align-items: center; /* Alinha os itens verticalmente no centro */
-  padding: 10px; /* Adiciona um pouco de padding para espaçamento interno */
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 10px;
 `;
 
 // Componente principal
 const BlueBoxComponent: React.FC = () => {
   return (
     <BlueBox>
-      <InnerBoxComponent />
-      <InnerBoxComponent />
-      <InnerBoxComponent />
-      <InnerBoxComponent />
+      <InnerBoxComponent text="Total produtos em alta" value={120} percentage={53} />
+      <InnerBoxComponent text="Total Produtos em baixa" value={80} percentage={-5} />
+      <InnerBoxComponent text="Total Clientes em alta" value={150} percentage={70} />
+      <InnerBoxComponent text="Total Clientes em baixa" value={70} percentage={-10} />
     </BlueBox>
   );
 };

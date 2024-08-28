@@ -1,38 +1,76 @@
 import React from 'react';
+import styled from 'styled-components';
 import SidebarComponent from '../components/sidebar/sidebar';
 import ProductsTable from '../components/table/productsTable';
 import CustomersTable from '../components/table/customersTable';
 import BlueBoxComponent from '../components/boxHeaders/boxHeaders';
+import HeaderUserComponent from '../components/boxHeaders/headerUser';
+
+// Estilização dos componentes principais da página
+const DashboardContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+`;
+
+const ContentWrapper = styled.div`
+  display: flex;
+  flex: 1;
+`;
+
+const MainContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+`;
+
+const Spacer = styled.div`
+  height: 2px;
+  background-color: #f0f0f0;
+  padding: 0;
+`;
+
+const BlueBoxWrapper = styled.div`
+  height: 150px;
+  overflow: hidden;
+`;
+
+const TablesWrapper = styled.div`
+  flex: 1;
+  display: flex;
+  padding: 20px;
+`;
+
+const TableColumn = styled.div`
+  width: 49%;
+  &:not(:last-child) {
+    margin-right: 2%;
+  }
+`;
 
 const DashboardPage: React.FC = () => {
     return (
-        <div style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
-            <div style={{ display: 'flex', flex: 1 }}>
-                {/* Sidebar e BlueBoxComponent lado a lado */}
+        <DashboardContainer>
+            <ContentWrapper>
                 <SidebarComponent />
-                <div style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
-                    {/* Novo componente adicionado acima da BlueBoxComponent */}
-                    <div style={{ height: '80px', backgroundColor: '#f0f0f0', padding: '10px' }}>
-                        {/* Adicione o novo componente aqui */}
-                        Novo Componente
-                    </div>
-                    {/* Ajuste o tamanho do BlueBoxComponent para garantir que haja espaço para as tabelas */}
-                    <div style={{ height: '150px', overflow: 'hidden' }}>
+                <MainContent>
+                    <HeaderUserComponent />
+                    <Spacer />
+                    <BlueBoxWrapper>
                         <BlueBoxComponent />
-                    </div>
-                    <div style={{ flex: 1, display: 'flex', padding: '20px' }}>
-                        <div style={{ width: '49%', marginRight: '2%' }}>
+                    </BlueBoxWrapper>
+                    <TablesWrapper>
+                        <TableColumn>
                             <ProductsTable />
-                        </div>
-                        <div style={{ width: '49%' }}>
+                        </TableColumn>
+                        <TableColumn>
                             <CustomersTable />
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+                        </TableColumn>
+                    </TablesWrapper>
+                </MainContent>
+            </ContentWrapper>
+        </DashboardContainer>
     );
 };
-
 
 export default DashboardPage;
