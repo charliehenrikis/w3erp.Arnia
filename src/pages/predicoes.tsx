@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import SidebarComponent from '../components/sidebar/sidebar';
 import HeaderUserComponent from '../components/boxHeaders/headerUser';
-import PredicoesBox from '../components/boxPredicoes/boxInfo';
+import CardPredComponent from '../components/boxPredicoes/CardPred';
 
 // Estilização dos componentes principais da página
 const PageContainer = styled.div`
@@ -28,7 +28,7 @@ const PredicoesPage: React.FC = () => {
                 <SidebarComponent />
                 <ContentArea>
                     <HeaderUserComponent />
-                    <PredicoesBox></PredicoesBox>
+                    <CardPredComponent></CardPredComponent>
                 </ContentArea>
             </MainContent>
         </PageContainer>
