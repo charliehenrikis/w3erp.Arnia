@@ -4,6 +4,7 @@ import LoginForm from "../components/form/formLogin";
 import DashboardPage from "../pages/dashboard";
 import BlueBoxComponent from "../components/boxHeaders/boxHeaders";
 import PredicoesPage from "../pages/predicoes";
+import DetalhamentoPage from "../pages/detalhamentoProduto";
 
 const AppRoutes: React.FC = () => {
     return (
@@ -14,7 +15,7 @@ const AppRoutes: React.FC = () => {
                 <Route path="/dashboard" element={<DashboardPage />} />
                 <Route path="/predicoes" element={<PredicoesPage />} />
                 <Route path="/customers" element={<BlueBoxComponent />} />
-
+                <Route path="/detalhamento" element={<DetalhamentoPage />} />
             </Routes>
             
         </BrowserRouter>

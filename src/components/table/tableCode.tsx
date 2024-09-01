@@ -1,8 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import HeaderSection from './headersection';
-import DataTable from './tablegeneric';
 import PaginationTable from './paginationTable';
+import DataTable from './tablegeneric';
 
 const Container = styled.div`
   font-family: Poppins, sans-serif;
@@ -30,13 +31,27 @@ interface DataSectionProps {
   iconSrc: string;
   title: string;
   fetchUrl: string;
-  filterPercentage: number;
+  columnTitles: { [key: string]: string };
+  percentageField: string;
+  amountField?: string;  // Adiciona o campo de quantidade
+  filterPercentage?: number; // Adiciona filtro de porcentagem, se necessário
+  sortOrder?: 'asc' | 'desc'; // Ordem de ordenação para amount
+  showToggle?: boolean;
 }
 
-const DataSection: React.FC<DataSectionProps> = ({ iconSrc, title, fetchUrl, filterPercentage }) => {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+const DataSection: React.FC<DataSectionProps> = ({
+  iconSrc,
+  title,
+  fetchUrl,
+  columnTitles,
+  percentageField,
+  amountField,
+  filterPercentage,
+  sortOrder = 'asc',
+  showToggle = true
+}) => {
   const [data, setData] = useState<any[]>([]);
-  const [showHigh, setShowHigh] = useState(true);
+  const [showHigh, setShowHigh] = useState(true); // Define a visualização padrão como "Em Alta"
   const [currentPage, setCurrentPage] = useState(1);
   const [showAllPages, setShowAllPages] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -61,12 +76,6 @@ const DataSection: React.FC<DataSectionProps> = ({ iconSrc, title, fetchUrl, fil
     fetchData();
   }, [fetchUrl, title]);
 
-  const handleToggle = (showHigh: boolean) => {
-    setShowHigh(showHigh);
-    setCurrentPage(1);
-    setShowAllPages(false);
-  };
-
   const handlePageChange = (page: number) => setCurrentPage(page);
 
   const handleShowAll = () => {
@@ -76,18 +85,25 @@ const DataSection: React.FC<DataSectionProps> = ({ iconSrc, title, fetchUrl, fil
 
   const filteredData = data
     .filter(item =>
-      showHigh ? item.percentage >= filterPercentage : item.percentage < filterPercentage
-    )
-    .sort((a, b) =>
-      showHigh ? b.percentage - a.percentage : a.percentage - b.percentage
+      showHigh
+        ? item[percentageField] >= (filterPercentage || 0) // Mostrar produtos "Em Alta" com porcentagem >= filterPercentage
+        : item[percentageField] < (filterPercentage || 0) // Mostrar produtos "Em Baixa" com porcentagem < filterPercentage
     );
 
-  const paginatedData = filteredData.slice(
+  const sortedData = amountField
+    ? filteredData.sort((a, b) => {
+        const aValue = a[amountField];
+        const bValue = b[amountField];
+        return sortOrder === 'asc' ? aValue - bValue : bValue - aValue;
+      })
+    : filteredData; // Ordena apenas se o campo amountField estiver definido
+
+  const paginatedData = sortedData.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
 
-  const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+  const totalPages = Math.ceil(sortedData.length / itemsPerPage);
 
   const formatPercentage = (percentage: number) => `${percentage.toFixed(0)}%`;
 
@@ -96,19 +112,22 @@ const DataSection: React.FC<DataSectionProps> = ({ iconSrc, title, fetchUrl, fil
       <HeaderSection
         iconSrc={iconSrc}
         title={title}
+        showToggle={showToggle}
         showHigh={showHigh}
-        onToggle={handleToggle}
+        onToggle={setShowHigh}
       />
       {loading && <Loader>Carregando...</Loader>}
       {error && <ErrorMessage>{error}</ErrorMessage>}
       {!loading && !error && (
         <>
           <DataTable
-            columns={['id', 'name', 'percentage']}
+            columns={Object.keys(columnTitles)}
             data={paginatedData.map(item => ({
               ...item,
-              percentage: formatPercentage(item.percentage),
+              [percentageField]: formatPercentage(item[percentageField]),
+              amount: item.amount
             }))}
+            columnTitles={columnTitles}
           />
           <PaginationTable
             currentPage={currentPage}

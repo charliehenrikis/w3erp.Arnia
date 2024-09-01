@@ -45,23 +45,32 @@ const Button = styled.button<{ active: boolean; type: 'high' | 'low' }>`
 interface HeaderSectionProps {
   iconSrc: string;
   title: string;
-  showHigh: boolean;
-  onToggle: (showHigh: boolean) => void;
+  showToggle?: boolean;
+  showHigh?: boolean;
+  onToggle?: (showHigh: boolean) => void;
 }
 
-const HeaderSection: React.FC<HeaderSectionProps> = ({ iconSrc, title, showHigh, onToggle }) => {
+const HeaderSection: React.FC<HeaderSectionProps> = ({
+  iconSrc,
+  title,
+  showToggle = false,
+  showHigh = true,
+  onToggle = () => {}
+}) => {
   return (
     <Header>
       <Icon src={iconSrc} alt="Ícone" />
       <Title>{title}</Title>
-      <Buttons>
-        <Button active={showHigh} type="high" onClick={() => onToggle(true)}>
-          Em alta
-        </Button>
-        <Button active={!showHigh} type="low" onClick={() => onToggle(false)}>
-          Em baixa
-        </Button>
-      </Buttons>
+      {showToggle && (
+        <Buttons>
+          <Button active={showHigh} type="high" onClick={() => onToggle(true)}>
+            Em alta
+          </Button>
+          <Button active={!showHigh} type="low" onClick={() => onToggle(false)}>
+            Em baixa
+          </Button>
+        </Buttons>
+      )}
     </Header>
   );
 };

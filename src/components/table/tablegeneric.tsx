@@ -35,15 +35,16 @@ const TableData = styled.td`
 interface DataTableProps {
   columns: string[];
   data: { [key: string]: any }[];
+  columnTitles: { [key: string]: string }; // Map from data key to column title
 }
 
-const DataTable: React.FC<DataTableProps> = ({ columns, data }) => {
+const DataTable: React.FC<DataTableProps> = ({ columns, data, columnTitles }) => {
   return (
     <Table>
       <TableHead>
         <tr>
           {columns.map((column) => (
-            <TableCell key={column}>{column}</TableCell>
+            <TableCell key={column}>{columnTitles[column]}</TableCell>
           ))}
         </tr>
       </TableHead>

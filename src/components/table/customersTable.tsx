@@ -7,7 +7,9 @@ const CustomersTable: React.FC = () => (
     iconSrc={PeopleImg}
     title="Clientes"
     fetchUrl="http://localhost:3000/customers"
-    filterPercentage={35}
+    filterPercentage={30}
+    columnTitles={{ id: 'ID', name: 'Cliente', percentage: 'Porcentagem' }}
+    percentageField="percentage"
   />
 );
 

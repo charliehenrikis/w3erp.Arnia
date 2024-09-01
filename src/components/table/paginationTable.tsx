@@ -43,8 +43,10 @@ const PaginationTable: React.FC<PaginationTableProps> = ({
   onShowAll,
   showAllPages = false,
 }) => {
-  // Show 5 pages at most
   const maxPagesToShow = 5;
+
+  // Verificação de total de páginas e se é necessário limitar
+  if (totalPages <= 0) return null;
 
   const showPagesInBlocks = (start: number, end: number) => {
     const pages = [];
@@ -58,7 +60,10 @@ const PaginationTable: React.FC<PaginationTableProps> = ({
     return pages;
   };
 
-  const startPage = Math.max(1, Math.min(currentPage - Math.floor(maxPagesToShow / 2), totalPages - maxPagesToShow + 1));
+  const startPage = Math.max(
+    1,
+    Math.min(currentPage - Math.floor(maxPagesToShow / 2), totalPages - maxPagesToShow + 1)
+  );
   const endPage = Math.min(startPage + maxPagesToShow - 1, totalPages);
 
   return (
@@ -66,7 +71,7 @@ const PaginationTable: React.FC<PaginationTableProps> = ({
       {!showAllPages && totalPages > maxPagesToShow && (
         <>
           {showPagesInBlocks(startPage, endPage)}
-          {totalPages > endPage && onShowAll && (
+          {endPage < totalPages && onShowAll && (
             <ShowAllButton onClick={onShowAll}>Mostrar Todos</ShowAllButton>
           )}
         </>
