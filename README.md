@@ -17,32 +17,6 @@ Detalhamento de Produtos e Clientes: Exibição de dados em tabelas.
 👨‍💻 Backend: Integração com API para puxar dados de produtos e clientes.
 https://github.com/vtpa/w3-erp-backend
 
-⚙️ Instalação e Configuração
-Clone o Repositório
-
-bash
-Copiar código
-git clone https://github.com/seu-usuario/w3erp.git
-cd w3erp
-Instale as Dependências
-
-bash
-Copiar código
-npm install
-# ou
-yarn install
-Configuração do Ambiente
-
-Certifique-se de ter um arquivo .env na raiz do projeto com as variáveis de ambiente necessárias para a conexão com a API.
-
-Inicie o Servidor de Desenvolvimento
-
-bash
-Copiar código
-npm start
-# ou
-yarn start
-
 🔍 Estrutura do Projeto
 src/components/: Componentes reutilizáveis da aplicação.
 src/pages/: Páginas da aplicação, como login, dashboard, e detalhamentos.
@@ -50,5 +24,3 @@ src/routes/: Roteamento de páginas
 
 📝 Licença
 Este projeto está licenciado sob a MIT License.
-
-
