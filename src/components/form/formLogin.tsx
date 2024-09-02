@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import ImagemLadoFormulario from '../../assets/Rectangle 3953.png';
 import GenericButton from '../button/button';
+import { useNavigate } from 'react-router-dom';
 
 const Container = styled.div`
   display: flex;
@@ -67,7 +68,6 @@ const Icon = styled.div`
   transform: translateY(-50%);
   cursor: pointer;
   color: #3f51b5;
-  z-index: 1;
 `;
 
 const TextContainer = styled.div`
@@ -87,6 +87,12 @@ const Subtitle = styled.h5`
 const ErrorMessage = styled.p`
   color: red;
   margin: 8px 0 0 0;
+  font-size: 12px;
+`;
+
+const SuccessMessage = styled.p`
+  color: green;
+  margin: 8px 0;
   font-size: 12px;
 `;
 
@@ -122,10 +128,20 @@ const EsqueciSenha = styled.a`
   cursor: pointer;
 `;
 
+const dadosMocados = [
+  {
+    user: "teste@teste.com",
+    password: "12345678",
+    id: "fd40"
+  }
+];
+
 const LoginForm: React.FC = () => {
   const [mostrarSenha, setMostrarSenha] = useState(false);
-  const [dadosFormulario, setDadosFormulario] = useState({ nome: '', senha: '' });
-  const [erros, setErros] = useState({ nome: '', senha: '' });
+  const [dadosFormulario, setDadosFormulario] = useState({ email: '', senha: '' });
+  const [erros, setErros] = useState({ email: '', senha: '' });
+  const [mensagemSucesso, setMensagemSucesso] = useState('');
+  const navigate = useNavigate();
 
   const lidarComMudanca = (evento: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = evento.target;
@@ -137,24 +153,49 @@ const LoginForm: React.FC = () => {
   };
 
   const validarFormulario = () => {
-    const erros = { nome: '', senha: '' };
-    if (!dadosFormulario.nome) {
-      erros.nome = 'Nome é obrigatório';
+    const erros = { email: '', senha: '' };
+    const { email, senha } = dadosFormulario;
+
+    // Validar e-mail
+    const eMailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!email) {
+      erros.email = 'E-mail é obrigatório';
+    } else if (!eMailRegex.test(email)) {
+      erros.email = 'E-mail inválido';
     }
-    if (!dadosFormulario.senha) {
+
+    // Validar senha
+    if (!senha) {
       erros.senha = 'Senha é obrigatória';
-    } else if (dadosFormulario.nome !== 'usuario' || dadosFormulario.senha !== 'senha123') {
-      erros.senha = 'Nome ou senha incorretos';
+    } else if (senha.length < 6) {
+      erros.senha = 'A senha deve ter pelo menos 6 caracteres';
     }
+
+    // Verificar credenciais
+    if (!erros.email && !erros.senha) {
+      const usuarioValido = dadosMocados.some(
+        (usuario) => usuario.user === email && usuario.password === senha
+      );
+
+      if (!usuarioValido) {
+        erros.senha = 'E-mail ou senha incorretos';
+      }
+    }
+
     setErros(erros);
-    return !erros.nome && !erros.senha;
+    return !erros.email && !erros.senha;
   };
 
   const lidarComEnvio = (evento: React.FormEvent<HTMLFormElement>) => {
     evento.preventDefault();
+
     if (validarFormulario()) {
-      console.log('Login bem-sucedido:', dadosFormulario);
-      // Aqui você pode adicionar lógica adicional após o login, se necessário
+      setMensagemSucesso('Login bem-sucedido!');
+      setTimeout(() => {
+        navigate('/dashboard');
+      }, 2000);
+    } else {
+      setMensagemSucesso('');
     }
   };
 
@@ -169,12 +210,12 @@ const LoginForm: React.FC = () => {
           <InputContainer>
             <Input
               type="text"
-              name="nome"
-              placeholder="Nome"
-              value={dadosFormulario.nome}
+              name="email"
+              placeholder="E-mail"
+              value={dadosFormulario.email}
               onChange={lidarComMudanca}
             />
-            {erros.nome && <ErrorMessage>{erros.nome}</ErrorMessage>}
+            {erros.email && <ErrorMessage>{erros.email}</ErrorMessage>}
           </InputContainer>
           <InputContainer>
             <Input
@@ -189,6 +230,7 @@ const LoginForm: React.FC = () => {
             </Icon>
             {erros.senha && <ErrorMessage>{erros.senha}</ErrorMessage>}
           </InputContainer>
+          {mensagemSucesso && <SuccessMessage>{mensagemSucesso}</SuccessMessage>}
           <RememberMeContainer>
             <RememberMeLabel>
               <RememberMeInput type="checkbox" />

@@ -35,7 +35,7 @@ const TableData = styled.td`
 interface DataTableProps {
   columns: string[];
   data: { [key: string]: any }[];
-  columnTitles: { [key: string]: string }; // Map from data key to column title
+  columnTitles: { [key: string]: string }; 
 }
 
 const DataTable: React.FC<DataTableProps> = ({ columns, data, columnTitles }) => {

@@ -65,7 +65,14 @@ const DataSection: React.FC<DataSectionProps> = ({
       try {
         const response = await fetch(fetchUrl);
         const result = await response.json();
-        setData(result);
+
+        // Adicionar valores aleatórios para o campo `amount` caso ele não exista
+        const updatedData = result.map((item: any) => ({
+          ...item,
+          [amountField || 'amount']: item[amountField || 'amount'] ?? Math.floor(Math.random() * 100) + 1,
+        }));
+
+        setData(updatedData);
       } catch (error) {
         setError(`Erro ao buscar os dados de ${title}. Tente novamente mais tarde.`);
         console.error(`Erro ao buscar os dados de ${title}:`, error);
@@ -74,7 +81,7 @@ const DataSection: React.FC<DataSectionProps> = ({
       }
     };
     fetchData();
-  }, [fetchUrl, title]);
+  }, [fetchUrl, title, amountField]);
 
   const handlePageChange = (page: number) => setCurrentPage(page);
 
@@ -92,8 +99,8 @@ const DataSection: React.FC<DataSectionProps> = ({
 
   const sortedData = amountField
     ? filteredData.sort((a, b) => {
-        const aValue = a[amountField];
-        const bValue = b[amountField];
+        const aValue = a[amountField || 'amount'];
+        const bValue = b[amountField || 'amount'];
         return sortOrder === 'asc' ? aValue - bValue : bValue - aValue;
       })
     : filteredData; // Ordena apenas se o campo amountField estiver definido
@@ -125,7 +132,7 @@ const DataSection: React.FC<DataSectionProps> = ({
             data={paginatedData.map(item => ({
               ...item,
               [percentageField]: formatPercentage(item[percentageField]),
-              amount: item.amount
+              amount: item[amountField || 'amount']
             }))}
             columnTitles={columnTitles}
           />

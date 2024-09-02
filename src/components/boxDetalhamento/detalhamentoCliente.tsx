@@ -1,10 +1,10 @@
-import React from 'react';
-import styled from 'styled-components';
-import SalesChart from "../components/boxDetalhamento/boxDetalhamento";
-import HeaderUserComponent from "../components/boxHeaders/headerUser";
-import SidebarComponent from "../components/sidebar/sidebar";
-import ProductDetailDown from '../components/boxDetalhamento/ProductDetailDown';
-import ProductDetailUp from '../components/boxDetalhamento/ProductDetailHigh';
+import styled from "styled-components";
+import HeaderUserComponent from "../boxHeaders/headerUser";
+import SidebarComponent from "../sidebar/sidebar";
+import SalesChart from "./boxDetalhamento";
+import ClientDetailDown from "./ClientDetailDown";
+import ClientDetailHigh from "./ClientDetailHigh";
+
 
 // Estilização para os containers da página
 const PageContainer = styled.div`
@@ -35,7 +35,7 @@ const TableColumn = styled.div`
   flex: 1;
 `;
 
-const DetalhamentoProduto: React.FC = () => {
+const DetalhamentoPage2: React.FC = () => {
   return (
     <PageContainer>
       <MainContent>
@@ -45,10 +45,10 @@ const DetalhamentoProduto: React.FC = () => {
           <SalesChart />
           <TablesWrapper>
             <TableColumn>
-              <ProductDetailDown />
+              <ClientDetailDown />
             </TableColumn>
             <TableColumn>
-              <ProductDetailUp />
+              <ClientDetailHigh />
             </TableColumn>
           </TablesWrapper>
         </ContentArea>
@@ -57,4 +57,4 @@ const DetalhamentoProduto: React.FC = () => {
   );
 };
 
-export default DetalhamentoProduto;
+export default DetalhamentoPage2;

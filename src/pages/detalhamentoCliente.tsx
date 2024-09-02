@@ -3,8 +3,8 @@ import styled from 'styled-components';
 import SalesChart from "../components/boxDetalhamento/boxDetalhamento";
 import HeaderUserComponent from "../components/boxHeaders/headerUser";
 import SidebarComponent from "../components/sidebar/sidebar";
-import ProductDetailDown from '../components/boxDetalhamento/ProductDetailDown';
-import ProductDetailUp from '../components/boxDetalhamento/ProductDetailHigh';
+import ClientDetailDown from '../components/boxDetalhamento/ClientDetailDown';
+import ClientDetailHigh from '../components/boxDetalhamento/ClientDetailHigh';
 
 // Estilização para os containers da página
 const PageContainer = styled.div`
@@ -35,7 +35,7 @@ const TableColumn = styled.div`
   flex: 1;
 `;
 
-const DetalhamentoProduto: React.FC = () => {
+const DetalhamentoCliente: React.FC = () => {
   return (
     <PageContainer>
       <MainContent>
@@ -45,10 +45,10 @@ const DetalhamentoProduto: React.FC = () => {
           <SalesChart />
           <TablesWrapper>
             <TableColumn>
-              <ProductDetailDown />
+              <ClientDetailDown />
             </TableColumn>
             <TableColumn>
-              <ProductDetailUp />
+              <ClientDetailHigh />
             </TableColumn>
           </TablesWrapper>
         </ContentArea>
@@ -57,4 +57,4 @@ const DetalhamentoProduto: React.FC = () => {
   );
 };
 
-export default DetalhamentoProduto;
+export default DetalhamentoCliente;

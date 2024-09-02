@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { RadialBarDasboard } from './graphic';
 
-const InnerBox = styled.div`
+const InnerBox = styled.div<{ onClick: () => void }>`
   width: 275px;
   height: 100px;
   border-radius: 12px;
@@ -13,6 +13,7 @@ const InnerBox = styled.div`
   padding: 10px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
   overflow: hidden;
+  cursor: pointer; /* Adicionado para indicar que é clicável */
 `;
 
 const GraphContainer = styled.div`
@@ -62,11 +63,12 @@ interface InnerBoxComponentProps {
   text: string;
   value: number;
   percentage: number;
+  onClick: () => void;
 }
 
-const InnerBoxComponent: React.FC<InnerBoxComponentProps> = ({ text, value, percentage }) => {
+const InnerBoxComponent: React.FC<InnerBoxComponentProps> = ({ text, value, percentage, onClick }) => {
   return (
-    <InnerBox>
+    <InnerBox onClick={onClick}>
       <GraphContainer>
         <RadialBarDasboard percentageGraphic={percentage} />
       </GraphContainer>
