@@ -1,50 +1,54 @@
-# React + TypeScript + Vite
+W3ERP
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+W3ERP é uma aplicação web de gerenciamento empresarial desenvolvida em React com TypeScript. O projeto inclui funcionalidades para login, dashboard, e detalhamento de produtos e clientes em tabelas, com dados puxados de uma API backend. A aplicação é altamente componentizada e utiliza várias bibliotecas para melhorar a experiência de desenvolvimento e usuário.
 
-Currently, two official plugins are available:
+🚀 Tecnologias Utilizadas
+TypeScript: Para um desenvolvimento mais seguro e eficiente com tipagem estática.
+React: Biblioteca para construção da interface de usuário.
+React Icons: Para ícones de interface.
+React ApexCharts: Para gráficos e visualizações de dados.
+React Hook Form: Para gerenciamento de formulários.
+React Router: Para gerenciamento de rotas.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+📂 Funcionalidades
+Tela de Login: Interface para autenticação de usuários.
+Dashboard: Painel principal com visualização de dados.
+Detalhamento de Produtos e Clientes: Exibição de dados em tabelas.
+👨‍💻 Backend: Integração com API para puxar dados de produtos e clientes.
+https://github.com/vtpa/w3-erp-backend
 
-## Expanding the ESLint configuration
+⚙️ Instalação e Configuração
+Clone o Repositório
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+bash
+Copiar código
+git clone https://github.com/seu-usuario/w3erp.git
+cd w3erp
+Instale as Dependências
 
-- Configure the top-level `parserOptions` property like this:
+bash
+Copiar código
+npm install
+# ou
+yarn install
+Configuração do Ambiente
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+Certifique-se de ter um arquivo .env na raiz do projeto com as variáveis de ambiente necessárias para a conexão com a API.
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+Inicie o Servidor de Desenvolvimento
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+bash
+Copiar código
+npm start
+# ou
+yarn start
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+🔍 Estrutura do Projeto
+src/components/: Componentes reutilizáveis da aplicação.
+src/pages/: Páginas da aplicação, como login, dashboard, e detalhamentos.
+src/routes/: Roteamento de páginas
+
+📝 Licença
+Este projeto está licenciado sob a MIT License.
+
+
