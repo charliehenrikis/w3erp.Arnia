@@ -6,7 +6,6 @@ import CustomersTable from '../components/table/customersTable';
 import BlueBoxComponent from '../components/boxHeaders/boxHeaders';
 import HeaderUserComponent from '../components/boxHeaders/headerUser';
 
-// Estilização dos componentes principais da página
 const DashboardContainer = styled.div`
   display: flex;
   flex-direction: column;

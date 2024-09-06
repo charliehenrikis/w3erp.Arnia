@@ -87,7 +87,7 @@ const SalesChart: React.FC = () => {
   useEffect(() => {
     // Simulando uma chamada de API
     const fetchProductTitle = async () => {
-      // Aqui você faria a chamada real à API, mas vou mockar a resposta
+      // Aqui seria a chamada real à API, mas vou mockar a resposta
       const response = await new Promise<{ title: string }>((resolve) => {
         setTimeout(() => resolve({ title: 'Papel higiênico' }), 1000); // Simulando um atraso na resposta
       });
@@ -103,7 +103,7 @@ const SalesChart: React.FC = () => {
       <TitleContainer>
         <ProductContainer>
           <BackButton>
-            <FaArrowLeft size={20} /> {/* Ícone de voltar usando react-icons */}
+            <FaArrowLeft size={20} /> {}
           </BackButton>
           <ProductTitle>Detalhamento</ProductTitle>
         </ProductContainer>

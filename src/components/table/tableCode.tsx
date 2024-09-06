@@ -33,9 +33,9 @@ interface DataSectionProps {
   fetchUrl: string;
   columnTitles: { [key: string]: string };
   percentageField: string;
-  amountField?: string;  // Adiciona o campo de quantidade
-  filterPercentage?: number; // Adiciona filtro de porcentagem, se necessário
-  sortOrder?: 'asc' | 'desc'; // Ordem de ordenação para amount
+  amountField?: string;
+  filterPercentage?: number;
+  sortOrder?: 'asc' | 'desc';
   showToggle?: boolean;
 }
 
@@ -47,8 +47,7 @@ const DataSection: React.FC<DataSectionProps> = ({
   percentageField,
   amountField,
   filterPercentage,
-  sortOrder = 'asc',
-  showToggle = true
+  showToggle = true,
 }) => {
   const [data, setData] = useState<any[]>([]);
   const [showHigh, setShowHigh] = useState(true); // Define a visualização padrão como "Em Alta"
@@ -90,20 +89,39 @@ const DataSection: React.FC<DataSectionProps> = ({
     setCurrentPage(1);
   };
 
-  const filteredData = data
-    .filter(item =>
-      showHigh
-        ? item[percentageField] >= (filterPercentage || 0) // Mostrar produtos "Em Alta" com porcentagem >= filterPercentage
-        : item[percentageField] < (filterPercentage || 0) // Mostrar produtos "Em Baixa" com porcentagem < filterPercentage
-    );
+  const filteredData = data.filter((item) => {
+    const percentage = item[percentageField] || 0;
+    const comparisonPercentage = filterPercentage ?? 0;
 
-  const sortedData = amountField
-    ? filteredData.sort((a, b) => {
-        const aValue = a[amountField || 'amount'];
-        const bValue = b[amountField || 'amount'];
-        return sortOrder === 'asc' ? aValue - bValue : bValue - aValue;
-      })
-    : filteredData; // Ordena apenas se o campo amountField estiver definido
+    if (showHigh) {
+      return percentage >= comparisonPercentage; // Mostrar "Em Alta" com porcentagem >= filterPercentage
+    } else {
+      return percentage < comparisonPercentage; // Mostrar "Em Baixa" com porcentagem < filterPercentage
+    }
+  });
+
+  const sortedData = filteredData.sort((a, b) => {
+    const percentageA = a[percentageField] || 0;
+    const percentageB = b[percentageField] || 0;
+
+    // Lógica para ordenar por `amount`, se disponível
+    if (amountField) {
+      const amountA = a[amountField] || 0;
+      const amountB = b[amountField] || 0;
+
+      // Ordenar com base no estado de `showHigh`
+      if (showHigh) {
+        // Para "Em Alta", ordenar `amount` de forma decrescente
+        return amountB - amountA;
+      } else {
+        // Para "Em Baixa", ordenar `amount` de forma crescente
+        return amountA - amountB;
+      }
+    }
+
+    // Ordenar por `percentage` se os valores de `amount` forem iguais
+    return showHigh ? percentageB - percentageA : percentageA - percentageB;
+  });
 
   const paginatedData = sortedData.slice(
     (currentPage - 1) * itemsPerPage,
@@ -129,10 +147,10 @@ const DataSection: React.FC<DataSectionProps> = ({
         <>
           <DataTable
             columns={Object.keys(columnTitles)}
-            data={paginatedData.map(item => ({
+            data={paginatedData.map((item) => ({
               ...item,
               [percentageField]: formatPercentage(item[percentageField]),
-              amount: item[amountField || 'amount']
+              amount: item[amountField || 'amount'],
             }))}
             columnTitles={columnTitles}
           />

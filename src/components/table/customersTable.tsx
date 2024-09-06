@@ -1,5 +1,5 @@
 import React from 'react';
-import PeopleImg from '../../assets/facial-cleanser.png';
+import PeopleImg from '../../assets/every-user.png';
 import DataSection from './tableCode';
 
 const CustomersTable: React.FC = () => (

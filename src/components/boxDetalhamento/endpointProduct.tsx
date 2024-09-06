@@ -1,23 +1,21 @@
 import React from 'react';
 import PeopleImg from '../../assets/react.svg';
 import DataSection from '../table/tableCode';
-import { TableContainer as MuiTableContainer } from '@mui/material';
 import styled from 'styled-components';
 
-// Estilização personalizada para o TableContainer
-const TableContainer = styled(MuiTableContainer)`
-  width: 100vw;  // Ocupa toda a largura da tela
-  height: 100vh; // Ocupa toda a altura da tela
+// Definição do TableContainer com styled-components
+const TableContainer = styled.div`
+  width: 100vw; 
+  height: 100vh;
   display: flex;
   flex-direction: column;
-  padding: 20px; // Adiciona um espaçamento interno
-  box-sizing: border-box; // Inclui o padding no cálculo da largura/altura
+  padding: 20px; 
+  box-sizing: border-box;
 `;
 
-// Estilização para o DataSection para garantir que ocupe todo o espaço do container
 const FullHeightSection = styled.div`
-  flex: 1;  // Faz o DataSection ocupar todo o espaço disponível
-  overflow: auto;  // Adiciona rolagem se necessário
+  flex: 1;
+  overflow: auto;
 `;
 
 const EndpointProduct: React.FC = () => (
@@ -32,7 +30,7 @@ const EndpointProduct: React.FC = () => (
         amountField="amount"
         sortOrder="asc"
         showToggle={true}
-        filterPercentage={-10}
+        filterPercentage={0} // Ajuste conforme necessário
       />
     </FullHeightSection>
   </TableContainer>

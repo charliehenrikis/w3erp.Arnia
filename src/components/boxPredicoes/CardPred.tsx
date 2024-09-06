@@ -56,7 +56,7 @@ const CardPredComponent: React.FC = () => {
           const cards = formattedClientes.map((cliente, index) => ({
             cliente,
             produtos: formattedProdutos.slice(index * 3, (index + 1) * 3),
-          }));
+          })).filter(card => card.produtos.length > 0); // Exclui cards sem produtos
 
           setCardsData(cards);
           setFilteredData(cards); // Inicialmente, exibe todos os cards

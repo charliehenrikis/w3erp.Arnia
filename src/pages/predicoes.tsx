@@ -4,7 +4,6 @@ import SidebarComponent from '../components/sidebar/sidebar';
 import HeaderUserComponent from '../components/boxHeaders/headerUser';
 import CardPredComponent from '../components/boxPredicoes/CardPred';
 
-// Estilização dos componentes principais da página
 const PageContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -19,6 +18,7 @@ const MainContent = styled.div`
 const ContentArea = styled.div`
   flex: 1;
   padding: 20px;
+  overflow-y:scroll;
 `;
 
 const PredicoesPage: React.FC = () => {

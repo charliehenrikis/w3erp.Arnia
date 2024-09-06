@@ -239,7 +239,7 @@ const LoginForm: React.FC = () => {
             <EsqueciSenha href="#">Esqueci minha senha</EsqueciSenha>
           </RememberMeContainer>
           <ButtonContainer>
-            <GenericButton label="Entrar" path="/dashboard" />
+          <GenericButton label="Entrar" onClick={() => {}} />
           </ButtonContainer>
         </Form>
       </FormSection>

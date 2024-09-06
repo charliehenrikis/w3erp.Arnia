@@ -72,9 +72,9 @@ const SidebarComponent = () => {
             <Sidebar>
                 <Logo src={logo} alt="Logo" />
                 <ButtonContainer>
-                    <GenericButton label="Dashboard" path="/dashboard" icon={<FaTachometerAlt />} />
-                    <GenericButton label="Predições" path="/predicoes" icon={<FaChartLine />} />
-                    <GenericButton label="Produtos" path="/produtos" icon={<FaBox />} />
+                <GenericButton label="Dashboard" path="/dashboard" icon={<FaTachometerAlt />} />
+                <GenericButton label="Predições" path="/predicoes" icon={<FaChartLine />} />
+                <GenericButton label="Produtos" path="/produtos" icon={<FaBox />} />
                 </ButtonContainer>
                 <HelpAndImageSection>
                     <Image src={ImageDaMao} alt="Imagem PNG" />
